@@ -1,15 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app>
+    <HeadingComponent />
+    <!-- <v-sheet class="bg-indigo-darken-4" rounded> -->
+
+      <v-main>
+        <v-container >
+          <v-row>
+            <v-col>
+              <img alt="Vue logo" src="./assets/logo.png">
+              <h1 class="text-primary">Welcome to</h1>
+              <h1 class="text-primary">Automatic Certificate Generator</h1>
+              <br>
+              <h3 class="font-weight-light">Please fillout the form and generate your certificate.</h3>
+            </v-col>
+
+            <v-col>
+              <NameInput />
+            </v-col>
+          </v-row>
+        </v-container>        
+      </v-main>
+    <!-- </v-sheet> -->
+    <v-footer class="bg-indigo-darken-4"></v-footer> 
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeadingComponent from './components/HeadingComponent.vue'
+import NameInput from './components/NameInput.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HeadingComponent,
+    NameInput,
   }
 }
 </script>
