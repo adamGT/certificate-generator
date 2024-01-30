@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import VueQrcode from '@chenfengyuan/vue-qrcode';
 
 
 // Vuetify
@@ -16,4 +17,7 @@ const vuetify = createVuetify({
   directives,
 })
 
-createApp(App).use(vuetify).mount('#app')
+const app = createApp(App).use(vuetify)
+
+app.component(VueQrcode.name, VueQrcode);
+app.mount('#app') 

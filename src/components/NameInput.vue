@@ -1,6 +1,7 @@
 <template>
     <!-- <v-sheet class="bg-deep-purple pa-12" rounded> -->
       <v-card class="mx-auto px-6 py-8" max-width="390">
+        <vue-qrcode v-show="false" :value="urlLink" ref="qr" :options="{ width: 100 }"></vue-qrcode>
         <v-form
           v-model="form"
           @submit.prevent="onSubmit"
@@ -78,7 +79,8 @@
       loading: false,
       myUrl: '#',
       myFilename: '',
-      image
+      image,
+      urlLink: "www.bluehealthethiopia.com"
     }),
 
     methods: {
@@ -147,18 +149,27 @@
             return
         }
         // Wondimagegnehu Gebremariyam Hailesilasei
+
+        
+        const contentHtml = this.$refs.qr.$el;
+        const qrImage = contentHtml.toDataURL("image/jpeg", 0.8);
         
         const imageWidth = doc.internal.pageSize.getWidth();
 
-        doc.addFileToVFS("calist.ttf", font)
-        doc.addFont("calist.ttf", "calist", "normal");
-        doc.setFont("calist","normal");
-        doc.setTextColor("#013A65") //#3C81A8
         doc.addImage(image,'PNG',4,4,280,180)
+
+        doc.addFileToVFS("calist.ttf", font)
+        doc.addFont("calist.ttf", "calist", "normal")
+        doc.setFont("calist","normal")
+        doc.setTextColor("#013A65") //#3C81A8
         doc.text(useFullName, (imageWidth/2), textTopMagrin, null, null,'center');
+
+        doc.addImage(qrImage, 'PNG', 246, 146, 30, 30)
+
         doc.setFontSize(15)
         doc.setTextColor("#3C81A8") 
-        doc.text("CERTIFICATE", (imageWidth/2), 125, null, null,'center');
+        doc.text("CERTIFICATE", (imageWidth/2), 125, null, null,'center')
+
         doc.save('Certificate.pdf')
       },
       firstLetterToCaps(data){
