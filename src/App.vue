@@ -1,42 +1,6 @@
 <template>
-  <v-app>
-    <HeadingComponent />
-    <!-- <v-sheet class="bg-indigo-darken-4" rounded> -->
-
-      <v-main>
-        <v-container >
-          <v-row>
-            <v-col>
-              <img alt="Vue logo" src="./assets/logo.png">
-              <h1 class="text-primary">Welcome to</h1>
-              <h1 class="text-primary">Automatic Certificate Generator</h1>
-              <br>
-              <h3 class="font-weight-light">Please fillout the form and generate your certificate.</h3>
-            </v-col>
-
-            <v-col>
-              <NameInput />
-            </v-col>
-          </v-row>
-        </v-container>        
-      </v-main>
-    <!-- </v-sheet> -->
-    <v-footer class="bg-indigo-darken-4"></v-footer> 
-  </v-app>
+  <router-view/>
 </template>
-
-<script>
-import HeadingComponent from './components/HeadingComponent.vue'
-import NameInput from './components/NameInput.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HeadingComponent,
-    NameInput,
-  }
-}
-</script>
 
 <style>
 #app {
@@ -45,6 +9,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
