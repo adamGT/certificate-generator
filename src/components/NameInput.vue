@@ -80,7 +80,7 @@
       myUrl: '#',
       myFilename: '',
       image,
-      urlLink: "https://social.bluehealthethiopia.com/"
+      urlLink: "www.bluehealthethiopia.com"
     }),
 
     methods: {
