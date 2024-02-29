@@ -9,7 +9,7 @@
               <v-col>
                 <v-card class="mx-auto px-6 py-8" min-width="390" max-width="490">
                     <v-text-field
-                        v-model="firstName"
+                        v-model="user.firstName"
                         :readonly="loading"
                         :rules="[required]"
                         class="mb-2"
@@ -19,7 +19,7 @@
                     ></v-text-field>
             
                     <v-text-field
-                        v-model="fathersName"
+                        v-model="user.fathersName"
                         :readonly="loading"
                         :rules="[required]"
                         class="mb-2"
@@ -28,15 +28,26 @@
                     ></v-text-field>
             
                     <v-text-field
-                        v-model="grandFathersName"
+                        v-model="user.grandfathersName"
                         :readonly="loading"
                         :rules="[required]"
                         class="mb-2"
                         clearable
                         label="Grandfather's Name"
                     ></v-text-field>
+
                     <v-combobox
-                        v-model="gender"
+                        v-model="user.title"
+                        :readonly="loading"
+                        :rules="[required]"
+                        class="mb-2"
+                        clearable
+                        label="Please Choose your title"
+                        :items="['Dr.', 'Mr.','Ms.','Mrs','N/S','Sr.']"
+                    ></v-combobox>
+
+                    <v-combobox
+                        v-model="user.sex"
                         :readonly="loading"
                         :rules="[required]"
                         class="mb-2"
@@ -46,7 +57,7 @@
                     ></v-combobox>
             
                     <v-text-field
-                        v-model="password"
+                        v-model="user.password"
                         type="password"
                         :readonly="loading"
                         :rules="[required, checkPassword]"
@@ -57,7 +68,7 @@
                     ></v-text-field>
             
                     <v-text-field
-                        v-model="conformPassword"
+                        v-model="user.conformPassword"
                         type="password"
                         :readonly="loading"
                         :rules="[required, checkPassword]"
@@ -74,7 +85,7 @@
                     
 
                     <v-text-field
-                        v-model="phone"
+                        v-model="user.phone"
                         :readonly="loading"
                         class="mb-2"
                         clearable
@@ -82,7 +93,7 @@
                     ></v-text-field>
 
                     <v-text-field
-                        v-model="email"
+                        v-model="user.email"
                         type="email"
                         :readonly="loading"
                         :rules="[required]"
@@ -90,19 +101,18 @@
                         clearable
                         label="Email"
                     ></v-text-field>
-
-                    <v-combobox
-                        v-model="title"
+                    
+                    <v-text-field
+                        v-model="user.placeOfWork"
                         :readonly="loading"
                         :rules="[required]"
                         class="mb-2"
                         clearable
-                        label="Please Choose your title"
-                        :items="['Dr.', 'Mr.','Ms.','Mrs','N/S','Sr.']"
-                    ></v-combobox>
+                        label="Place of Work"
+                    ></v-text-field>
             
                     <v-combobox
-                        v-model="profession"
+                        v-model="user.profession"
                         :readonly="loading"
                         :rules="[required]"
                         class="mb-2"
@@ -113,7 +123,7 @@
 
                     
                     <v-combobox
-                        v-model="region"
+                        v-model="user.region"
                         :readonly="loading"
                         :rules="[required]"
                         class="mb-2"
@@ -143,22 +153,27 @@
   </template>
 
 <script>
+import AuthService from '../services/authService'
+
 export default {
   name: "SignUpComponent",
   data: () => ({
     form: false,
     loading: false,
-    gender: null,
-    email: null,
-    password: null,
-    conformPassword: null,
-    phone: null,
-    title: null,
-    profession: null,
-    region: null,
-    firstName: null,
-    fathersName: null,
-    grandFathersName: null,
+    onformPassword: null,
+    user: {
+      firstName: null,
+      fathersName: null,
+      grandFathersName: null,
+      sex: null,
+      title: null,
+      email: null,
+      phone: null,
+      placeOfWork: null,
+      profession: null,
+      region: null,
+      password: null,
+    },
   }),
 
   methods: {
@@ -168,11 +183,19 @@ export default {
       this.loading = true
       
       setTimeout(() => (this.loading = false), 2000)
+      this.registerUser()
     },
     checkPassword () {
         if(this.password !== this.conformPassword){
             return "Password doesn't match"
         }
+    },
+    async registerUser(){
+      // try{
+        await AuthService.registerUser(this.user)
+      // }catch(err){
+      //   console.log(err)
+      // }
     },
     required (v) {
       return !!v || 'Field is required'
