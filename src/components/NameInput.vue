@@ -1,7 +1,7 @@
 <template>
     <!-- <v-sheet class="bg-deep-purple pa-12" rounded> -->
       <v-card class="mx-auto px-6 py-8" max-width="390">
-        <vue-qrcode v-show="false" :value="urlLink" ref="qr" :options="{ width: 100 }"></vue-qrcode>
+        <vue-qrcode v-show="true" :value="urlLink" ref="qr" :options="{ width: 300 }"></vue-qrcode>
         <v-form
           v-model="form"
           @submit.prevent="onSubmit"
@@ -80,7 +80,7 @@
       myUrl: '#',
       myFilename: '',
       image,
-      urlLink: "www.bluehealthethiopia.com"
+      urlLink: "https://forms.gle/jWdjmTguom8uDi4Y8"
     }),
 
     methods: {
