@@ -43,6 +43,10 @@
   </template>
 
 <script>
+import store from '../store/store';
+import * as type from '../store/type'
+import AuthService from '../services/authService'
+
 export default {
   name: "SignInComponent",
   data: () => ({
@@ -57,12 +61,24 @@ export default {
       if (!this.form) return
 
       this.loading = true
-      
-      setTimeout(() => (this.loading = false), 2000)
+      this.loginUser()
     },
     required (v) {
       return !!v || 'Field is required'
     },
+    async loginUser(){
+       await AuthService.signUpUser(this.email, this.password).then((data) => {
+        this.saveUserData(data)
+        setTimeout(() => (this.loading = false), 2000)
+        console.log(data)
+       })
+    },
+    saveUserData(userData){
+        store.dispatch({
+          type: type.adduserdata,
+          user: userData
+        })
+    }
   },
 }
 </script>
